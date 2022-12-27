@@ -1,0 +1,68 @@
+https://onlinegdb.com/jfSBupcFA
+/*********************************************
+ *Автор: Бойко Виктория.                     *
+ *Дата: 18.10.22.                            *
+ *Название: Календарь (стандартный).         *
+ *                                           *
+ *********************************************/
+
+#include <iostream>
+#include <iomanip>
+ 
+using namespace std;
+ 
+int countMonth(int startDay, int daysNumber, const char* name) {
+    
+  cout << name << ":" << endl << " " << endl;
+  cout << "Пн |\tВт |\tСр |\tЧт |\tПт |\tСб |\tВс" << endl;
+  for (int i = 1; i < startDay; i++)
+  cout <<"\t";
+  for (int i = 1; i <= daysNumber; i++) {
+      
+    cout << i << "\t";
+    if ((startDay + i) % 7 == 1)
+    cout << endl;
+    }
+    
+  cout << endl;
+  cout << endl;
+  startDay = (startDay + daysNumber) % 7;
+  if (startDay == 0)
+    startDay = 7;
+  return startDay;
+}
+ 
+int main() {
+    
+  int numYear, Feb;
+  cout << "Введите год: ";
+  cin >> numYear;
+  if ((numYear % 4 == 0 && numYear % 100 != 0) || numYear % 400 == 0)
+    Feb = 29;
+  else
+    Feb = 28;
+ 
+  int indexMonth[] = {6, 2, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
+  int remains = numYear % 100;
+
+  int current, b;
+  current = remains / 12 + remains % 12 + remains % 12 / 4 + indexMonth[0] + 1;
+  if (numYear % 400 == 0 || (numYear % 4 == 0 && numYear % 100 != 0)) --current;
+  b = current % 7;
+ 
+  cout << endl;
+ 
+  b = countMonth(b, 31,  "Январь");
+  b = countMonth(b, Feb, "Февраль");
+  b = countMonth(b, 31,  "Март");
+  b = countMonth(b, 30,  "Апрель");
+  b = countMonth(b, 31,  "Май");
+  b = countMonth(b, 30,  "Июнь");
+  b = countMonth(b, 31,  "Июль");
+  b = countMonth(b, 31,  "Август");
+  b = countMonth(b, 30,  "Сентябрь");
+  b = countMonth(b, 31,  "Октябрь");
+  b = countMonth(b, 30,  "Ноябрь");
+  b = countMonth(b, 31,  "Декабрь");
+  return 0;
+}
